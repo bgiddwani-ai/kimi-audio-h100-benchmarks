@@ -1,0 +1,40 @@
+{
+  "run_id": "20261104T050941Z-514802",
+  "runtime": "docker",
+  "image": "kimi-audio-bench:20261104",
+  "gpu_uuid": "GPU-fbf3e08a-e987-9a86-7d29-5c6b750872e2",
+  "profiles": [
+    "eager",
+    "graphs",
+    "trt_projector"
+  ],
+  "concurrencies": "1,2,4,8,16,32,64",
+  "requests_per_cell": 320,
+  "benchmark_client": "Executed inside the serving container/pod; loopback HTTP",
+  "source_revision": "uncommitted",
+  "source_sha256": {
+    "run.py": "f7205e62f584abc5ab8a6f5ec3df6ff32c6efa824e2c12d71284ad956e812bd9",
+    "patch_runtime.py": "d772991b3762fc460d50f0787daefc52475bad46cdae45f43e102913381819f3",
+    "report.py": "7b0e36d4912560c1ff50eac05096af4eb7d5c52bfa73635c2424a6207bde17c4",
+    "serve.py": "141d000aba6713be3e3292bc1f61ec5f539503d782e3e7cd126ff6662c436353",
+    "projector.py": "dbe5fa4071da815b0a7561c5d754d40f6d756b96c0763e41a8713d905dab77be",
+    "runtime_extensions.py": "4a4980a198a27170e68c2e53beff6179a12b936c08e652053febdb0d04009268",
+    "benchmark.py": "26d3481d6b37cd25fc885a585a2b8ad8523747c711fea923d1c37d86ee35aea5",
+    "Dockerfile": "280cc809af36c369c673bca9a2243b8940b23ba57547581fb31e132800f5b0a0",
+    "k8s.yaml": "be2ef1c1814f8b973f6273a2ab3448a023a27eb3787890cc7d2635654ce2070b"
+  },
+  "image_id": "sha256:a6b2bff31db9b19e43ea0a3c16bb2c166608916fc757f99ea395dd96d285a5a2",
+  "startup_s": {
+    "eager": 90.57141104299808,
+    "graphs": 41.758430522997514,
+    "trt_projector": 83.48047133699583
+  },
+  "runtime_versions": {
+    "vllm": "0.25.0+cu129",
+    "torch": "2.11.0+cu129",
+    "transformers": "5.22.1",
+    "torchcodec": "0.11.0+cpu",
+    "tensorrt": "10.13.3.9"
+  },
+  "completed_utc": "2026-11-04T05:16:23.837020+00:00"
+}

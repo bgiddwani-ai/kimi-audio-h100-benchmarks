@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "profiles": [
+    "eager",
+    "graphs",
+    "trt_projector"
+  ],
+  "host_requests": 6720,
+  "container_requests": 6720,
+  "cells_per_environment": 21,
+  "all_requests_successful": true,
+  "image_build_exit_code": 0,
+  "container_runner_exit_code": 0,
+  "k8s_server_dryrun_passed": true,
+  "k8s_manifest_sha256": "49653e4b0d104aff89e94e2ca1fa705c7c77e230729f7e786cfbb8051c09ca88",
+  "k8s_live_deployment_tested": false,
+  "dra_inventory_items": 0,
+  "gpu3_memory_after_mib": 0,
+  "owned_containers_remaining": 0,
+  "local_audio_sha256_verified": 64,
+  "local_raw_cells_verified": 42,
+  "markdown_links_verified": true,
+  "python_syntax_verified": true,
+  "svg_xml_valid": 6,
+  "plots_visually_reviewed": true,
+  "secret_pattern_hits": 0
+}

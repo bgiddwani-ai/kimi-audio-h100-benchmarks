@@ -1,0 +1,110 @@
+{"Layers": [{
+  "Name": "Reformatting CopyNode for Input Tensor 0 to {ForeignNode[onnx::MatMul_22 + ONNXTRT_Broadcast.../layers/layers.4/LayerNormalization]}",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "audio_features",
+    "Location": "Device",
+    "Dimensions": [-1,-1,5120],
+    "Format/Datatype": "Float"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to {ForeignNode[onnx::MatMul_22 + ONNXTRT_Broadcast.../layers/layers.4/LayerNormalization]}",
+    "Location": "Device",
+    "Dimensions": [-1,-1,5120],
+    "Format/Datatype": "Half"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x00000000000003e8",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "__mye111_0_myl1_0",
+  "LayerType": "shape_call",
+  "Inputs": [],
+  "Outputs": [],
+  "TacticName": "",
+  "StreamId": 0,
+  "Metadata": ""
+},{
+  "Name": "__myl_Fc_myl1_1",
+  "LayerType": "fusion",
+  "Inputs": [
+  {
+    "Name": "Reformatted Input Tensor 0 to {ForeignNode[onnx::MatMul_22 + ONNXTRT_Broadcast.../layers/layers.4/LayerNormalization]}",
+    "Dimensions": [-1,5120],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "/layers/layers_3/Add_output_0.1_9_myl1",
+    "Dimensions": [-1,3584],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "sm90_xmma_gemm_f16f16_f16f16_f16_nn_n_tilesize128x128x64_cgasize1x1x1_warpgroupsize1x1x1_beta0_by_fusion_tactic",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /layers/layers.0/MatMul]\u001f[ONNX Layer: /layers/layers.1/Mul_1]\u001f[ONNX Layer: /layers/layers.1/Mul]\u001f[ONNX Layer: /layers/layers.1/Add]\u001f[ONNX Layer: /layers/layers.1/Div]\u001f[ONNX Layer: /layers/layers.1/Erf]\u001f[ONNX Layer: /layers/layers.0/Add]"
+},{
+  "Name": "/layers/layers_3/MatMul_myl1_2",
+  "LayerType": "gemm",
+  "Inputs": [
+  {
+    "Name": "/layers/layers_3/Add_output_0.1_9_myl1",
+    "Dimensions": [-1,3584],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "__myln_k_arg__bb1_10_myl1",
+    "Dimensions": [-1,3584],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "sm90_xmma_gemm_f16f16_f16f16_f16_tn_n_tilesize64x256x64_warpgroupsize1x1x1_beta0",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /layers/layers.3/MatMul]\u001f[ONNX Layer: /layers/layers.3/Add]"
+},{
+  "Name": "__myl_CastMeanSubMulMeanAddSqrtDivMulCastMulAdd_myl1_3",
+  "LayerType": "kgen",
+  "Inputs": [
+  {
+    "Name": "__myln_k_arg__bb1_10_myl1",
+    "Dimensions": [-1,3584],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "Reformatted Output Tensor 0 to {ForeignNode[onnx::MatMul_22 + ONNXTRT_Broadcast.../layers/layers.4/LayerNormalization]}",
+    "Dimensions": [-1,3584],
+    "Format/Datatype": "Half"
+  }],
+  "TacticName": "__myl_CastMeanSubMulMeanAddSqrtDivMulCastMulAdd_0x7b5e274f44e53b3fc988b19b5d3445a1_vec",
+  "StreamId": 0,
+  "Metadata": "[ONNX Layer: /layers/layers.4/LayerNormalization]"
+},{
+  "Name": "Reformatting CopyNode for Output Tensor 0 to {ForeignNode[onnx::MatMul_22 + ONNXTRT_Broadcast.../layers/layers.4/LayerNormalization]}",
+  "LayerType": "Reformat",
+  "Inputs": [
+  {
+    "Name": "Reformatted Output Tensor 0 to {ForeignNode[onnx::MatMul_22 + ONNXTRT_Broadcast.../layers/layers.4/LayerNormalization]}",
+    "Location": "Device",
+    "Dimensions": [-1,-1,3584],
+    "Format/Datatype": "Half"
+  }],
+  "Outputs": [
+  {
+    "Name": "embeddings",
+    "Location": "Device",
+    "Dimensions": [-1,-1,3584],
+    "Format/Datatype": "Float"
+  }],
+  "ParameterType": "Reformat",
+  "Origin": "REFORMAT",
+  "TacticValue": "0x00000000000003e8",
+  "StreamId": 0,
+  "Metadata": ""
+}],
+"Bindings": ["audio_features"
+,"embeddings"
+]}

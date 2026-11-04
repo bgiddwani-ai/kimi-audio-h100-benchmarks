@@ -1,0 +1,13 @@
+*
+!Dockerfile
+!serve.py
+!benchmark.py
+!projector.py
+!runtime_extensions.py
+!report.py
+!patch_runtime.py
+!chat_template.jinja
+!patches/
+!patches/**
+!data/
+!data/**

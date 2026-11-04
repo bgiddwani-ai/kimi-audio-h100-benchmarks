@@ -1,0 +1,11 @@
+.work/
+reruns/
+__pycache__/
+*.pyc
+*.engine
+*.onnx
+*.onnx.data
+*.deb
+.env
+.venv/
+.DS_Store

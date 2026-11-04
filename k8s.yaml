@@ -1,0 +1,116 @@
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: kimi-gpu
+spec:
+  spec:
+    devices:
+      requests:
+        - name: gpu
+          exactly:
+            deviceClassName: gpu.nvidia.com
+            allocationMode: ExactCount
+            count: 1
+            selectors:
+              - cel:
+                  expression: device.attributes['gpu.nvidia.com'].uuid == 'GPU_UUID_PLACEHOLDER'
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kimi-work
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kimi-audio
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: kimi-audio
+  template:
+    metadata:
+      labels:
+        app: kimi-audio
+    spec:
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: kimi-gpu
+      containers:
+        - name: server
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PROFILE
+              value: eager
+            - name: GPU_UUID
+              value: GPU_UUID_PLACEHOLDER
+          ports:
+            - name: http
+              containerPort: 8000
+          resources:
+            claims:
+              - name: gpu
+            requests:
+              cpu: '8'
+              memory: 48Gi
+            limits:
+              cpu: '16'
+              memory: 96Gi
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            failureThreshold: 90
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            failureThreshold: 6
+          volumeMounts:
+            - name: work
+              mountPath: /work
+            - name: work
+              mountPath: /root/.cache
+              subPath: cache
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: kimi-work
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 8Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kimi-audio
+spec:
+  selector:
+    app: kimi-audio
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http

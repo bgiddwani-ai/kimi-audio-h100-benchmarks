@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.wav binary
+*.png binary
+patches/*.patch -whitespace
+*.log -text -whitespace
+*.csv -text -whitespace
+*.svg -whitespace

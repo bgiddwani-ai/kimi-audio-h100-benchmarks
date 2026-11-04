@@ -1,0 +1,17 @@
+{%- set chat_messages = [messages] if messages is mapping else messages -%}
+{%- for message in chat_messages -%}
+{%- if message['role'] == 'user' -%}
+<|im_kimia_user_msg_start|>
+{%- if message['content'] is string -%}
+{{ message['content'] }}
+{%- else -%}
+{%- for part in message['content'] -%}
+{%- if part['type'] == 'text' -%}{{ part['text'] }}
+{%- elif part['type'] in ['audio','audio_url','input_audio'] -%}<|im_media_begin|><|im_kimia_text_blank|><|im_media_end|>
+{%- endif -%}
+{%- endfor -%}
+{%- endif -%}<|im_kimia_speech_ct_id|><|im_msg_end|>
+{%- elif message['role'] == 'assistant' -%}<|im_kimia_assistant_msg_start|>{{ message['content'] }}<|im_kimia_text_eos|>
+{%- endif -%}
+{%- endfor -%}
+{%- if add_generation_prompt -%}<|im_kimia_assistant_msg_start|>{%- endif -%}

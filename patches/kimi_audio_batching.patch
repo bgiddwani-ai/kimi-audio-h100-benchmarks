@@ -1,0 +1,65 @@
+--- vllm/model_executor/models/kimi_audio.py
++++ vllm/model_executor/models/kimi_audio.py
+@@ -59,17 +59,9 @@
+ 
+ 
+ def _get_feat_extract_output_lengths(input_lengths: torch.Tensor) -> torch.Tensor:
+-    """Compute output lengths after Whisper feature extraction.
+-
+-    Whisper processes audio through multiple conv layers with stride=2,
+-    producing 13 output features per 100 input samples.
+-    """
+-    input_lengths_leave = input_lengths % 100
+-    feat_lengths = (input_lengths_leave - 1) // 2 + 1
+-    output_lengths = (
+-        ((feat_lengths - 1) // 2 + 1 - 1) // 2 + 1 + (input_lengths // 100) * 13
+-    )
+-    return output_lengths
++    """Map mel frames through a stride-two conv and four-frame grouping."""
++    # Conv1 keeps mel length; conv2 halves it; projector groups four.
++    return (input_lengths + 7) // 8
+ 
+ 
+ class KimiAudioWhisperEncoder(WhisperEncoder):
+@@ -445,6 +437,10 @@
+         self, audio_input: dict[str, torch.Tensor]
+     ) -> torch.Tensor:
+         input_features = audio_input["whisper_input_features"]
++        if isinstance(input_features, (list, tuple)):
++            return [self._process_audio_input({"whisper_input_features":
++                item.unsqueeze(0) if item.dim() == 2 else item}).squeeze(0)
++                for item in input_features]
+ 
+         # KimiAudioWhisperEncoder expects list of tensors
+         if input_features.dim() == 3:
+@@ -475,6 +471,8 @@
+ 
+         # audio_embeds shape: [batch_size, seq_len, hidden_dim]
+         # Return as list of 2D tensors, one per batch item
++        if isinstance(audio_embeds, (list, tuple)):
++            return list(audio_embeds)
+         if audio_embeds.dim() == 3:
+             # Unbind batch dimension: [B, T, D] -> list of B tensors [T, D]
+             return list(audio_embeds.unbind(dim=0))
+@@ -507,7 +505,11 @@
+             return inputs_embeds
+ 
+         # multimodal_embeddings[0] contains audio embeddings
+-        audio_embeds = multimodal_embeddings[0]
++        def flatten_embeddings(items):
++            if isinstance(items, torch.Tensor):
++                return [items.reshape(-1, items.shape[-1])]
++            return [tensor for item in items for tensor in flatten_embeddings(item)]
++        audio_embeds = torch.cat(flatten_embeddings(multimodal_embeddings), dim=0)
+ 
+         # Handle different tensor structures
+         if isinstance(audio_embeds, (list, tuple)):
+@@ -520,6 +522,8 @@
+         # (works for non-PP, PP needs vLLM infra fix)
+         num_mm_tokens = is_multimodal.sum().item()
+         num_audio_embeds = audio_embeds.shape[0]
++        if num_audio_embeds != num_mm_tokens:
++            raise ValueError(f"Audio alignment mismatch: {num_audio_embeds} embeddings vs {num_mm_tokens} placeholders")
+ 
+         # Use the minimum of available embeddings and positions
+         # This ensures we don't access out-of-bounds

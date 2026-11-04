@@ -1,0 +1,4 @@
+resourceclaimtemplate.resource.k8s.io/kimi-gpu created (server dry run)
+persistentvolumeclaim/kimi-work created (server dry run)
+deployment.apps/kimi-audio created (server dry run)
+service/kimi-audio created (server dry run)

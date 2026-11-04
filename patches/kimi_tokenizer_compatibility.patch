@@ -1,0 +1,43 @@
+--- vllm/tokenizers/kimi_audio.py
++++ vllm/tokenizers/kimi_audio.py
+@@ -175,14 +175,7 @@
+         """Add Kimi-Audio special tokens to the tokenizer."""
+         # Tokens should already be in self._special_tokens from tokenizer_config.json
+         # Just add them to added_tokens_decoder for compatibility
+-        kimiaudio_special_tokens = {
+-            "<|im_media_begin|>": 151661,
+-            "<|im_media_end|>": 151663,
+-            "<|im_kimia_text_blank|>": 151666,
+-            "<|im_msg_end|>": 151645,
+-            "<|im_kimia_user_msg_start|>": 151670,
+-            "<|im_kimia_assistant_msg_start|>": 151671,
+-        }
++        kimiaudio_special_tokens = self._special_tokens
+ 
+         for token_str, token_id in kimiaudio_special_tokens.items():
+             # Only add if not already present
+@@ -287,14 +280,7 @@
+         # Allow Kimi-Audio special tokens to be encoded
+         tokens = self._tokenizer.encode(
+             text,
+-            allowed_special={
+-                "<|im_media_begin|>",
+-                "<|im_media_end|>",
+-                "<|im_kimia_text_blank|>",
+-                "<|im_msg_end|>",
+-                "<|im_kimia_user_msg_start|>",
+-                "<|im_kimia_assistant_msg_start|>",
+-            },
++            allowed_special=set(self._special_tokens),
+         )
+         if truncation:
+             tokens = self._maybe_truncate(tokens, max_length)
+@@ -401,7 +387,7 @@
+         # Use render_jinja_template instead of apply_chat_template
+         # Note: render_jinja_template returns ([prompts], [generation_indices])
+         rendered, _ = hf_chat_utils.render_jinja_template(
+-            conversation,
++            [conversation],
+             chat_template=template,
+             tools=tools,
+             **kwargs,

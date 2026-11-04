@@ -1,0 +1,31 @@
+{
+  "fingerprint": {
+    "model_revision": "9a82a84c37ad9eb1307fb6ed8d7b397862ef9e6b",
+    "tensorrt": "10.13.3.9",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "capability": [
+      9,
+      0
+    ],
+    "builder_level": 3,
+    "enabled_precision": "fp16",
+    "input_shape": [
+      [
+        1,
+        1,
+        5120
+      ],
+      [
+        1,
+        376,
+        5120
+      ],
+      [
+        32,
+        1504,
+        5120
+      ]
+    ]
+  },
+  "sha256": "938a8c23f686701007d208821cafeeb4c88a0f4eae9e853646c12364a8703b14"
+}

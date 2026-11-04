@@ -1,0 +1,305 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.70kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 205B done
+#3 DONE 0.0s
+
+#4 [ 1/13] FROM docker.io/library/python:3.12-slim-bookworm@sha256:e697c81897302a4c4333bade000d98038fbb21eb064f8ee1fd42d02ebcd9d337
+#4 DONE 0.0s
+
+#5 [ 4/13] RUN python -m pip install     'vllm[audio] @ https://github.com/vllm-project/vllm/releases/download/v0.25.0/vllm-0.25.0%2Bcu129-cp38-abi3-manylinux_2_28_x86_64.whl'     'transformers==5.22.1' 'huggingface-hub==2.4.0'     'fastapi==0.136.3' 'pydantic==2.14.2' 'numpy==2.3.5' 'tiktoken==0.14.0'     --extra-index-url https://download.pytorch.org/whl/cu129     --extra-index-url https://download.pytorch.org/whl/cpu
+#5 CACHED
+
+#6 [ 2/13] RUN apt-get update && apt-get install -y --no-install-recommends     g++ gcc make ninja-build pkg-config libssl3 libgomp1 ffmpeg patch curl ca-certificates     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [ 3/13] RUN curl -fSL     https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-compat-12-9_575.57.08-0ubuntu1_amd64.deb     -o /tmp/cuda-compat.deb     && echo '536cf41fb15fd7d8b39231648379b48c41718d4bf588b44481443ed35f1f6ce9  /tmp/cuda-compat.deb' | sha256sum -c -     && dpkg-deb -x /tmp/cuda-compat.deb /opt/cuda-compat     && rm /tmp/cuda-compat.deb
+#7 CACHED
+
+#8 [ 5/13] RUN python -m pip install --no-deps --force-reinstall 'torchcodec==0.11.0+cpu'     --index-url https://download.pytorch.org/whl/cpu
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 46.94MB 0.1s done
+#9 DONE 0.2s
+
+#10 [ 6/13] RUN curl -fSL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/cuda-keyring_1.1-1_all.deb     -o /tmp/cuda-keyring.deb     && dpkg -i /tmp/cuda-keyring.deb     && apt-get update     && apt-get install -y --no-install-recommends cuda-nvcc-12-9 cuda-cudart-dev-12-9 cuda-cccl-12-9 libcurand-dev-12-9     && rm -rf /var/lib/apt/lists/* /tmp/cuda-keyring.deb
+#10 0.152   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+#10 0.152                                  Dload  Upload   Total   Spent    Left  Speed
+#10 0.152   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4148  100  4148    0     0  11975      0 --:--:-- --:--:-- --:--:-- 11953
+#10 0.526 Selecting previously unselected package cuda-keyring.
+#10 0.533 (Reading database ... 12679 files and directories currently installed.)
+#10 0.533 Preparing to unpack /tmp/cuda-keyring.deb ...
+#10 0.535 Unpacking cuda-keyring (1.1-1) ...
+#10 0.554 Setting up cuda-keyring (1.1-1) ...
+#10 0.624 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#10 0.646 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#10 0.652 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+#10 0.695 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+#10 0.753 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+#10 0.780 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [360 kB]
+#10 0.895 Get:7 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  InRelease [1578 B]
+#10 1.223 Get:8 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  Packages [2503 kB]
+#10 1.538 Fetched 11.9 MB in 1s (12.6 MB/s)
+#10 1.538 Reading package lists...
+#10 1.928 Reading package lists...
+#10 2.315 Building dependency tree...
+#10 2.395 Reading state information...
+#10 2.495 The following additional packages will be installed:
+#10 2.495   build-essential bzip2 cuda-crt-12-9 cuda-cudart-12-9 cuda-driver-dev-12-9
+#10 2.495   cuda-nvvm-12-9 cuda-toolkit-12-9-config-common cuda-toolkit-12-config-common
+#10 2.495   cuda-toolkit-config-common dpkg-dev libcurand-12-9 libdpkg-perl
+#10 2.495   libgdbm-compat4 libperl5.36 perl perl-modules-5.36 xz-utils
+#10 2.496 Suggested packages:
+#10 2.496   bzip2-doc debian-keyring gnupg | sq | sqop | pgpainless-cli sensible-utils
+#10 2.496   git bzr perl-doc libterm-readline-gnu-perl | libterm-readline-perl-perl
+#10 2.496   libtap-harness-archive-perl
+#10 2.496 Recommended packages:
+#10 2.496   fakeroot gnupg | sq | sqop | pgpainless-cli libalgorithm-merge-perl
+#10 2.496   libfile-fcntllock-perl liblocale-gettext-perl
+#10 2.544 The following NEW packages will be installed:
+#10 2.544   build-essential bzip2 cuda-cccl-12-9 cuda-crt-12-9 cuda-cudart-12-9
+#10 2.544   cuda-cudart-dev-12-9 cuda-driver-dev-12-9 cuda-nvcc-12-9 cuda-nvvm-12-9
+#10 2.544   cuda-toolkit-12-9-config-common cuda-toolkit-12-config-common
+#10 2.544   cuda-toolkit-config-common dpkg-dev libcurand-12-9 libcurand-dev-12-9
+#10 2.544   libdpkg-perl libgdbm-compat4 libperl5.36 perl perl-modules-5.36 xz-utils
+#10 2.592 0 upgraded, 21 newly installed, 0 to remove and 1 not upgraded.
+#10 2.592 Need to get 185 MB of archives.
+#10 2.592 After this operation, 748 MB of additional disk space will be used.
+#10 2.592 Get:1 http://deb.debian.org/debian-security bookworm-security/main amd64 perl-modules-5.36 all 5.36.0-7+deb12u4 [2817 kB]
+#10 2.638 Get:2 http://deb.debian.org/debian bookworm/main amd64 libgdbm-compat4 amd64 1.23-3 [48.2 kB]
+#10 2.638 Get:3 http://deb.debian.org/debian-security bookworm-security/main amd64 libperl5.36 amd64 5.36.0-7+deb12u4 [4208 kB]
+#10 2.650 Get:4 http://deb.debian.org/debian-security bookworm-security/main amd64 perl amd64 5.36.0-7+deb12u4 [239 kB]
+#10 2.651 Get:5 http://deb.debian.org/debian bookworm/main amd64 bzip2 amd64 1.0.8-5+b1 [49.8 kB]
+#10 2.659 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 xz-utils amd64 5.4.1-1+deb12u2 [471 kB]
+#10 2.661 Get:7 http://deb.debian.org/debian bookworm/main amd64 libdpkg-perl all 1.21.23 [604 kB]
+#10 2.663 Get:8 http://deb.debian.org/debian bookworm/main amd64 dpkg-dev all 1.21.23 [1354 kB]
+#10 2.667 Get:9 http://deb.debian.org/debian bookworm/main amd64 build-essential amd64 12.9 [7704 B]
+#10 2.953 Get:10 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-cccl-12-9 12.9.27-1 [1040 kB]
+#10 3.404 Get:11 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-toolkit-config-common 13.4.92-1 [17.4 kB]
+#10 3.695 Get:12 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-toolkit-12-config-common 12.9.79-1 [16.6 kB]
+#10 3.948 Get:13 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-toolkit-12-9-config-common 12.9.79-1 [16.6 kB]
+#10 4.239 Get:14 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-cudart-12-9 12.9.79-1 [173 kB]
+#10 4.645 Get:15 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-driver-dev-12-9 12.9.79-1 [29.3 kB]
+#10 4.900 Get:16 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-cudart-dev-12-9 12.9.79-1 [1415 kB]
+#10 5.234 Get:17 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-crt-12-9 12.9.86-1 [82.1 kB]
+#10 5.517 Get:18 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-nvvm-12-9 12.9.86-1 [43.1 MB]
+#10 6.031 Get:19 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  cuda-nvcc-12-9 12.9.86-1 [38.6 MB]
+#10 6.605 Get:20 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  libcurand-12-9 10.3.10.19-1 [45.4 MB]
+#10 7.723 Get:21 https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64  libcurand-dev-12-9 10.3.10.19-1 [45.6 MB]
+#10 8.425 debconf: delaying package configuration, since apt-utils is not installed
+#10 8.445 Fetched 185 MB in 6s (32.2 MB/s)
+#10 8.460 Selecting previously unselected package perl-modules-5.36.
+#10 8.460 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 12683 files and directories currently installed.)
+#10 8.466 Preparing to unpack .../00-perl-modules-5.36_5.36.0-7+deb12u4_all.deb ...
+#10 8.469 Unpacking perl-modules-5.36 (5.36.0-7+deb12u4) ...
+#10 8.679 Selecting previously unselected package libgdbm-compat4:amd64.
+#10 8.680 Preparing to unpack .../01-libgdbm-compat4_1.23-3_amd64.deb ...
+#10 8.684 Unpacking libgdbm-compat4:amd64 (1.23-3) ...
+#10 8.711 Selecting previously unselected package libperl5.36:amd64.
+#10 8.711 Preparing to unpack .../02-libperl5.36_5.36.0-7+deb12u4_amd64.deb ...
+#10 8.714 Unpacking libperl5.36:amd64 (5.36.0-7+deb12u4) ...
+#10 8.962 Selecting previously unselected package perl.
+#10 8.963 Preparing to unpack .../03-perl_5.36.0-7+deb12u4_amd64.deb ...
+#10 8.969 Unpacking perl (5.36.0-7+deb12u4) ...
+#10 9.002 Selecting previously unselected package bzip2.
+#10 9.003 Preparing to unpack .../04-bzip2_1.0.8-5+b1_amd64.deb ...
+#10 9.005 Unpacking bzip2 (1.0.8-5+b1) ...
+#10 9.030 Selecting previously unselected package xz-utils.
+#10 9.031 Preparing to unpack .../05-xz-utils_5.4.1-1+deb12u2_amd64.deb ...
+#10 9.033 Unpacking xz-utils (5.4.1-1+deb12u2) ...
+#10 9.082 Selecting previously unselected package libdpkg-perl.
+#10 9.082 Preparing to unpack .../06-libdpkg-perl_1.21.23_all.deb ...
+#10 9.085 Unpacking libdpkg-perl (1.21.23) ...
+#10 9.134 Selecting previously unselected package dpkg-dev.
+#10 9.135 Preparing to unpack .../07-dpkg-dev_1.21.23_all.deb ...
+#10 9.137 Unpacking dpkg-dev (1.21.23) ...
+#10 9.227 Selecting previously unselected package build-essential.
+#10 9.228 Preparing to unpack .../08-build-essential_12.9_amd64.deb ...
+#10 9.230 Unpacking build-essential (12.9) ...
+#10 9.252 Selecting previously unselected package cuda-cccl-12-9.
+#10 9.253 Preparing to unpack .../09-cuda-cccl-12-9_12.9.27-1_amd64.deb ...
+#10 9.255 Unpacking cuda-cccl-12-9 (12.9.27-1) ...
+#10 9.414 Selecting previously unselected package cuda-toolkit-config-common.
+#10 9.416 Preparing to unpack .../10-cuda-toolkit-config-common_13.4.92-1_all.deb ...
+#10 9.418 Unpacking cuda-toolkit-config-common (13.4.92-1) ...
+#10 9.442 Selecting previously unselected package cuda-toolkit-12-config-common.
+#10 9.443 Preparing to unpack .../11-cuda-toolkit-12-config-common_12.9.79-1_all.deb ...
+#10 9.445 Unpacking cuda-toolkit-12-config-common (12.9.79-1) ...
+#10 9.468 Selecting previously unselected package cuda-toolkit-12-9-config-common.
+#10 9.469 Preparing to unpack .../12-cuda-toolkit-12-9-config-common_12.9.79-1_all.deb ...
+#10 9.470 Unpacking cuda-toolkit-12-9-config-common (12.9.79-1) ...
+#10 9.490 Selecting previously unselected package cuda-cudart-12-9.
+#10 9.490 Preparing to unpack .../13-cuda-cudart-12-9_12.9.79-1_amd64.deb ...
+#10 9.493 Unpacking cuda-cudart-12-9 (12.9.79-1) ...
+#10 9.524 Selecting previously unselected package cuda-driver-dev-12-9.
+#10 9.525 Preparing to unpack .../14-cuda-driver-dev-12-9_12.9.79-1_amd64.deb ...
+#10 9.527 Unpacking cuda-driver-dev-12-9 (12.9.79-1) ...
+#10 9.548 Selecting previously unselected package cuda-cudart-dev-12-9.
+#10 9.549 Preparing to unpack .../15-cuda-cudart-dev-12-9_12.9.79-1_amd64.deb ...
+#10 9.550 Unpacking cuda-cudart-dev-12-9 (12.9.79-1) ...
+#10 9.652 Selecting previously unselected package cuda-crt-12-9.
+#10 9.652 Preparing to unpack .../16-cuda-crt-12-9_12.9.86-1_amd64.deb ...
+#10 9.654 Unpacking cuda-crt-12-9 (12.9.86-1) ...
+#10 9.679 Selecting previously unselected package cuda-nvvm-12-9.
+#10 9.680 Preparing to unpack .../17-cuda-nvvm-12-9_12.9.86-1_amd64.deb ...
+#10 9.682 Unpacking cuda-nvvm-12-9 (12.9.86-1) ...
+#10 10.36 Selecting previously unselected package cuda-nvcc-12-9.
+#10 10.36 Preparing to unpack .../18-cuda-nvcc-12-9_12.9.86-1_amd64.deb ...
+#10 10.36 Unpacking cuda-nvcc-12-9 (12.9.86-1) ...
+#10 11.03 Selecting previously unselected package libcurand-12-9.
+#10 11.04 Preparing to unpack .../19-libcurand-12-9_10.3.10.19-1_amd64.deb ...
+#10 11.04 Unpacking libcurand-12-9 (10.3.10.19-1) ...
+#10 11.44 Selecting previously unselected package libcurand-dev-12-9.
+#10 11.44 Preparing to unpack .../20-libcurand-dev-12-9_10.3.10.19-1_amd64.deb ...
+#10 11.44 Unpacking libcurand-dev-12-9 (10.3.10.19-1) ...
+#10 12.10 Setting up cuda-toolkit-config-common (13.4.92-1) ...
+#10 12.12 Setting up bzip2 (1.0.8-5+b1) ...
+#10 12.12 Setting up perl-modules-5.36 (5.36.0-7+deb12u4) ...
+#10 12.13 Setting up cuda-toolkit-12-9-config-common (12.9.79-1) ...
+#10 12.13 Setting alternatives
+#10 12.13 update-alternatives: using /usr/local/cuda-12.9 to provide /usr/local/cuda (cuda) in auto mode
+#10 12.14 update-alternatives: using /usr/local/cuda-12.9 to provide /usr/local/cuda-12 (cuda-12) in auto mode
+#10 12.15 Setting up cuda-driver-dev-12-9 (12.9.79-1) ...
+#10 12.15 Setting up xz-utils (5.4.1-1+deb12u2) ...
+#10 12.16 update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+#10 12.16 update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+#10 12.17 Setting up libgdbm-compat4:amd64 (1.23-3) ...
+#10 12.17 Setting up cuda-cccl-12-9 (12.9.27-1) ...
+#10 12.18 Setting up cuda-toolkit-12-config-common (12.9.79-1) ...
+#10 12.20 Setting up libperl5.36:amd64 (5.36.0-7+deb12u4) ...
+#10 12.20 Setting up libcurand-12-9 (10.3.10.19-1) ...
+#10 12.21 Setting up perl (5.36.0-7+deb12u4) ...
+#10 12.22 Setting up libdpkg-perl (1.21.23) ...
+#10 12.23 Setting up libcurand-dev-12-9 (10.3.10.19-1) ...
+#10 12.24 Setting up cuda-cudart-12-9 (12.9.79-1) ...
+#10 12.24 Setting up cuda-cudart-dev-12-9 (12.9.79-1) ...
+#10 12.25 Setting up dpkg-dev (1.21.23) ...
+#10 12.26 Setting up build-essential (12.9) ...
+#10 12.27 Setting up cuda-crt-12-9 (12.9.86-1) ...
+#10 12.28 Setting up cuda-nvvm-12-9 (12.9.86-1) ...
+#10 12.28 Setting up cuda-nvcc-12-9 (12.9.86-1) ...
+#10 12.29 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+#10 DONE 12.6s
+
+#11 [ 7/13] RUN python -m pip install 'tensorrt-cu12==10.13.3.9' 'onnx==1.23.2' 'onnxscript==0.7.2' 'onnx-ir==1.1.0' 'matplotlib==3.11.2' --extra-index-url https://pypi.nvidia.com
+#11 0.464 Looking in indexes: https://pypi.org/simple, https://pypi.nvidia.com
+#11 0.747 Collecting tensorrt-cu12==10.13.3.9
+#11 0.904   Downloading https://pypi.nvidia.com/tensorrt-cu12/tensorrt_cu12-10.13.3.9.tar.gz (18 kB)
+#11 0.912   Installing build dependencies: started
+#11 2.203   Installing build dependencies: finished with status 'done'
+#11 2.203   Getting requirements to build wheel: started
+#11 2.346   Getting requirements to build wheel: finished with status 'done'
+#11 2.347   Installing backend dependencies: started
+#11 4.103   Installing backend dependencies: finished with status 'done'
+#11 4.104   Preparing metadata (pyproject.toml): started
+#11 4.242   Preparing metadata (pyproject.toml): finished with status 'done'
+#11 4.348 Collecting onnx==1.23.2
+#11 4.405   Downloading onnx-1.23.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.7 kB)
+#11 4.535 Collecting onnxscript==0.7.2
+#11 4.544   Downloading onnxscript-0.7.2-py3-none-any.whl.metadata (13 kB)
+#11 4.612 Collecting onnx-ir==1.1.0
+#11 4.621   Downloading onnx_ir-1.1.0-py3-none-any.whl.metadata (3.3 kB)
+#11 4.838 Collecting matplotlib==3.11.2
+#11 4.846   Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+#11 4.927 Collecting tensorrt_cu12_libs==10.13.3.9 (from tensorrt-cu12==10.13.3.9)
+#11 5.048   Downloading https://pypi.nvidia.com/tensorrt-cu12-libs/tensorrt_cu12_libs-10.13.3.9-py2.py3-none-manylinux_2_28_x86_64.whl (3115.3 MB)
+#11 33.52      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 GB 114.3 MB/s eta 0:00:00
+#11 35.81 Collecting tensorrt_cu12_bindings==10.13.3.9 (from tensorrt-cu12==10.13.3.9)
+#11 36.04   Downloading https://pypi.nvidia.com/tensorrt-cu12-bindings/tensorrt_cu12_bindings-10.13.3.9-cp312-none-manylinux_2_28_x86_64.whl (1.2 MB)
+#11 36.05      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 176.0 MB/s eta 0:00:00
+#11 36.05 Requirement already satisfied: numpy>=1.23.2 in /usr/local/lib/python3.12/site-packages (from onnx==1.23.2) (2.3.5)
+#11 36.05 Requirement already satisfied: protobuf>=6.31.1 in /usr/local/lib/python3.12/site-packages (from onnx==1.23.2) (7.36.2)
+#11 36.05 Requirement already satisfied: typing_extensions>=4.7.1 in /usr/local/lib/python3.12/site-packages (from onnx==1.23.2) (4.16.0)
+#11 36.05 Requirement already satisfied: ml_dtypes>=0.5.4 in /usr/local/lib/python3.12/site-packages (from onnx==1.23.2) (0.6.0)
+#11 36.06 Requirement already satisfied: packaging in /usr/local/lib/python3.12/site-packages (from onnxscript==0.7.2) (26.3)
+#11 36.06 Requirement already satisfied: sympy>=1.13 in /usr/local/lib/python3.12/site-packages (from onnx-ir==1.1.0) (1.14.0)
+#11 36.17 Collecting contourpy>=1.0.1 (from matplotlib==3.11.2)
+#11 36.18   Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+#11 36.35 Collecting cycler>=0.10 (from matplotlib==3.11.2)
+#11 36.36   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+#11 36.57 Collecting fonttools>=4.28.2 (from matplotlib==3.11.2)
+#11 36.58   Downloading fonttools-4.68.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (139 kB)
+#11 36.71 Collecting kiwisolver>=1.3.1 (from matplotlib==3.11.2)
+#11 36.72   Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+#11 36.72 Requirement already satisfied: pillow>=9 in /usr/local/lib/python3.12/site-packages (from matplotlib==3.11.2) (13.0.0)
+#11 36.85 Collecting pyparsing>=3 (from matplotlib==3.11.2)
+#11 36.86   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+#11 36.99 Collecting python-dateutil>=2.7 (from matplotlib==3.11.2)
+#11 37.00   Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+#11 37.00 Requirement already satisfied: nvidia-cuda-runtime-cu12 in /usr/local/lib/python3.12/site-packages (from tensorrt_cu12_libs==10.13.3.9->tensorrt-cu12==10.13.3.9) (12.9.79)
+#11 37.07 Collecting tzdata (from python-dateutil>=2.7->matplotlib==3.11.2)
+#11 37.08   Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+#11 37.08 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/site-packages (from sympy>=1.13->onnx-ir==1.1.0) (1.3.0)
+#11 37.09 Downloading onnx-1.23.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (8.9 MB)
+#11 37.14    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.9/8.9 MB 238.1 MB/s eta 0:00:00
+#11 37.15 Downloading onnxscript-0.7.2-py3-none-any.whl (754 kB)
+#11 37.15    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 754.2/754.2 kB 928.3 MB/s eta 0:00:00
+#11 37.16 Downloading onnx_ir-1.1.0-py3-none-any.whl (192 kB)
+#11 37.17 Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+#11 37.18    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 576.7 MB/s eta 0:00:00
+#11 37.19 Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+#11 37.20 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+#11 37.21 Downloading fonttools-4.68.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+#11 37.22    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 694.2 MB/s eta 0:00:00
+#11 37.23 Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+#11 37.23    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 969.9 MB/s eta 0:00:00
+#11 37.24 Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+#11 37.24 Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+#11 37.25 Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+#11 37.29 Building wheels for collected packages: tensorrt-cu12
+#11 37.29   Building wheel for tensorrt-cu12 (pyproject.toml): started
+#11 37.44   Building wheel for tensorrt-cu12 (pyproject.toml): finished with status 'done'
+#11 37.44   Created wheel for tensorrt-cu12: filename=tensorrt_cu12-10.13.3.9-py2.py3-none-any.whl size=17541 sha256=73494a5f8485861cbc82fd0ba57e20acd49499d5f7f7a64392f539e13765b449
+#11 37.44   Stored in directory: /tmp/pip-ephem-wheel-cache-y_wrziv5/wheels/e5/35/20/f35c57a8ddd94fc70aef4cc1bf8f45d89579041545546ebc0d
+#11 37.44 Successfully built tensorrt-cu12
+#11 37.65 Installing collected packages: tensorrt_cu12_bindings, tzdata, tensorrt_cu12_libs, pyparsing, kiwisolver, fonttools, cycler, contourpy, tensorrt-cu12, python-dateutil, onnx, onnx-ir, matplotlib, onnxscript
+#11 69.41 Successfully installed contourpy-1.4.0 cycler-0.12.1 fonttools-4.68.0 kiwisolver-1.5.1 matplotlib-3.11.2 onnx-1.23.2 onnx-ir-1.1.0 onnxscript-0.7.2 pyparsing-3.3.3 python-dateutil-4.0.0 tensorrt-cu12-10.13.3.9 tensorrt_cu12_bindings-10.13.3.9 tensorrt_cu12_libs-10.13.3.9 tzdata-2026.6
+#11 69.41 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#11 69.65 
+#11 69.65 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#11 69.65 [notice] To update, run: pip install --upgrade pip
+#11 DONE 71.6s
+
+#12 [ 8/13] WORKDIR /app
+#12 DONE 0.0s
+
+#13 [ 9/13] COPY patches/ /app/patches/
+#13 DONE 0.0s
+
+#14 [10/13] COPY patch_runtime.py /app/
+#14 DONE 0.0s
+
+#15 [11/13] RUN python /app/patch_runtime.py --patch-dir /app/patches
+#15 0.191 patching file vllm/tokenizers/kimi_audio.py
+#15 0.194 patching file vllm/model_executor/models/kimi_audio.py
+#15 DONE 0.2s
+
+#16 [12/13] COPY serve.py benchmark.py projector.py runtime_extensions.py report.py chat_template.jinja /app/
+#16 DONE 0.1s
+
+#17 [13/13] COPY data/ /app/data/
+#17 DONE 0.1s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 7.3s done
+#18 writing image sha256:a6b2bff31db9b19e43ea0a3c16bb2c166608916fc757f99ea395dd96d285a5a2 done
+#18 naming to docker.io/library/kimi-audio-bench:20261104 done
+#18 DONE 7.3s

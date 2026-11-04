@@ -1,0 +1,224 @@
+{
+  "eager": {
+    "profile": "eager",
+    "command": [
+      "/home/ubuntu/kimi-audio-gpu3/.venv/bin/vllm",
+      "serve",
+      "/home/ubuntu/kimi-audio-gpu3/models/Kimi-Audio-7B-Instruct",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8033",
+      "--served-model-name",
+      "kimi-audio",
+      "--trust-remote-code",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "2048",
+      "--max-num-seqs",
+      "32",
+      "--max-num-batched-tokens",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.80",
+      "--mm-processor-cache-gb",
+      "0",
+      "--no-enable-prefix-caching",
+      "--chat-template",
+      "/home/ubuntu/kimi-audio-gpu3/chat_template.jinja",
+      "--chat-template-content-format",
+      "openai",
+      "--limit-mm-per-prompt",
+      "{\"audio\":1}",
+      "--enforce-eager"
+    ],
+    "started_utc": "2026-11-04T03:30:48Z",
+    "gpu_uuid": "GPU-fbf3e08a-e987-9a86-7d29-5c6b750872e2",
+    "concurrencies": "1,2,4,8,16,32,64",
+    "limit": 64,
+    "repeats": 5,
+    "ld_library_path": "/home/ubuntu/kimi-audio-gpu3/artifacts/cuda-compat/usr/local/cuda-12.9/compat:/usr/mpi/gcc/openmpi-4.1.7rc1/lib:/usr/mpi/gcc/openmpi-4.1.7rc1/lib64",
+    "startup_s": 21.01229330600472,
+    "ready": true,
+    "cells": [
+      {
+        "label": "eager_c1",
+        "exit_code": 0
+      },
+      {
+        "label": "eager_c2",
+        "exit_code": 0
+      },
+      {
+        "label": "eager_c4",
+        "exit_code": 0
+      },
+      {
+        "label": "eager_c8",
+        "exit_code": 0
+      },
+      {
+        "label": "eager_c16",
+        "exit_code": 0
+      },
+      {
+        "label": "eager_c32",
+        "exit_code": 0
+      },
+      {
+        "label": "eager_c64",
+        "exit_code": 0
+      }
+    ],
+    "finished_utc": "2026-11-04T03:32:11Z"
+  },
+  "graphs": {
+    "profile": "graphs",
+    "command": [
+      "/home/ubuntu/kimi-audio-gpu3/.venv/bin/vllm",
+      "serve",
+      "/home/ubuntu/kimi-audio-gpu3/models/Kimi-Audio-7B-Instruct",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8033",
+      "--served-model-name",
+      "kimi-audio",
+      "--trust-remote-code",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "2048",
+      "--max-num-seqs",
+      "32",
+      "--max-num-batched-tokens",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.80",
+      "--mm-processor-cache-gb",
+      "0",
+      "--no-enable-prefix-caching",
+      "--chat-template",
+      "/home/ubuntu/kimi-audio-gpu3/chat_template.jinja",
+      "--chat-template-content-format",
+      "openai",
+      "--limit-mm-per-prompt",
+      "{\"audio\":1}"
+    ],
+    "started_utc": "2026-11-04T03:32:14Z",
+    "gpu_uuid": "GPU-fbf3e08a-e987-9a86-7d29-5c6b750872e2",
+    "concurrencies": "1,2,4,8,16,32,64",
+    "limit": 64,
+    "repeats": 5,
+    "ld_library_path": "/home/ubuntu/kimi-audio-gpu3/artifacts/cuda-compat/usr/local/cuda-12.9/compat:/usr/mpi/gcc/openmpi-4.1.7rc1/lib:/usr/mpi/gcc/openmpi-4.1.7rc1/lib64",
+    "startup_s": 23.010895077000896,
+    "ready": true,
+    "cells": [
+      {
+        "label": "graphs_c1",
+        "exit_code": 0
+      },
+      {
+        "label": "graphs_c2",
+        "exit_code": 0
+      },
+      {
+        "label": "graphs_c4",
+        "exit_code": 0
+      },
+      {
+        "label": "graphs_c8",
+        "exit_code": 0
+      },
+      {
+        "label": "graphs_c16",
+        "exit_code": 0
+      },
+      {
+        "label": "graphs_c32",
+        "exit_code": 0
+      },
+      {
+        "label": "graphs_c64",
+        "exit_code": 0
+      }
+    ],
+    "finished_utc": "2026-11-04T03:33:34Z"
+  },
+  "trt_projector": {
+    "profile": "trt_projector",
+    "command": [
+      "/home/ubuntu/kimi-audio-gpu3/.venv/bin/vllm",
+      "serve",
+      "/home/ubuntu/kimi-audio-gpu3/models/Kimi-Audio-7B-Instruct",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8033",
+      "--served-model-name",
+      "kimi-audio",
+      "--trust-remote-code",
+      "--dtype",
+      "bfloat16",
+      "--max-model-len",
+      "2048",
+      "--max-num-seqs",
+      "32",
+      "--max-num-batched-tokens",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.80",
+      "--mm-processor-cache-gb",
+      "0",
+      "--no-enable-prefix-caching",
+      "--chat-template",
+      "/home/ubuntu/kimi-audio-gpu3/chat_template.jinja",
+      "--chat-template-content-format",
+      "openai",
+      "--limit-mm-per-prompt",
+      "{\"audio\":1}",
+      "--worker-extension-cls",
+      "runtime_extensions.TRTWorkerExtension"
+    ],
+    "started_utc": "2026-11-04T03:35:01Z",
+    "gpu_uuid": "GPU-fbf3e08a-e987-9a86-7d29-5c6b750872e2",
+    "concurrencies": "1,2,4,8,16,32,64",
+    "limit": 64,
+    "repeats": 5,
+    "ld_library_path": "/home/ubuntu/kimi-audio-gpu3/artifacts/cuda-compat/usr/local/cuda-12.9/compat:/usr/mpi/gcc/openmpi-4.1.7rc1/lib:/usr/mpi/gcc/openmpi-4.1.7rc1/lib64",
+    "startup_s": 23.010661415995855,
+    "ready": true,
+    "cells": [
+      {
+        "label": "trt_projector_c1",
+        "exit_code": 0
+      },
+      {
+        "label": "trt_projector_c2",
+        "exit_code": 0
+      },
+      {
+        "label": "trt_projector_c4",
+        "exit_code": 0
+      },
+      {
+        "label": "trt_projector_c8",
+        "exit_code": 0
+      },
+      {
+        "label": "trt_projector_c16",
+        "exit_code": 0
+      },
+      {
+        "label": "trt_projector_c32",
+        "exit_code": 0
+      },
+      {
+        "label": "trt_projector_c64",
+        "exit_code": 0
+      }
+    ],
+    "finished_utc": "2026-11-04T03:36:22Z"
+  }
+}
